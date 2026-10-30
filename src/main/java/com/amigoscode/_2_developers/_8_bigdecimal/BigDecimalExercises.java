@@ -5,7 +5,7 @@ import java.math.RoundingMode;
 
 /**
  * BigDecimal Exercises
- *
+ * <p>
  * Practice using BigDecimal for precise decimal arithmetic. BigDecimal avoids
  * the floating-point rounding errors that plague double and float. Essential
  * for financial calculations.
@@ -20,10 +20,10 @@ public class BigDecimalExercises {
      * @return a BigDecimal representing the value
      */
     public static BigDecimal createFromString(String value) {
-        // TODO: 1 - Create and return a BigDecimal using new BigDecimal(value).
+        //  1 - Create and return a BigDecimal using new BigDecimal(value).
         //  The String constructor preserves the exact decimal value.
-        //  NEVER use new BigDecimal(0.1) — see TODO 6 for why.
-        return null;
+        //  NEVER use new BigDecimal(0.1) — see 6 for why.
+        return new BigDecimal(value);
     }
 
     /**
@@ -34,9 +34,9 @@ public class BigDecimalExercises {
      * @return the sum
      */
     public static BigDecimal addValues(BigDecimal a, BigDecimal b) {
-        // TODO: 2 - Use the add() method to add a and b. Return the result.
+        //  2 - Use the add() method to add a and b. Return the result.
         //  Remember: BigDecimal is immutable, so add() returns a NEW BigDecimal.
-        return null;
+        return a.add(b);
     }
 
     /**
@@ -47,8 +47,8 @@ public class BigDecimalExercises {
      * @return the product
      */
     public static BigDecimal multiplyValues(BigDecimal a, BigDecimal b) {
-        // TODO: 3 - Use the multiply() method to multiply a and b. Return the result.
-        return null;
+        //  3 - Use the multiply() method to multiply a and b. Return the result.
+        return a.multiply(b);
     }
 
     /**
@@ -60,10 +60,10 @@ public class BigDecimalExercises {
      * @return the quotient rounded to the specified scale
      */
     public static BigDecimal divideValues(BigDecimal a, BigDecimal b, int scale) {
-        // TODO: 4 - Use a.divide(b, scale, RoundingMode.HALF_UP) to divide.
+        //  4 - Use a.divide(b, scale, RoundingMode.HALF_UP) to divide.
         //  You MUST specify a rounding mode for division, otherwise you may get
         //  an ArithmeticException for non-terminating decimals (like 1/3).
-        return null;
+        return a.divide(b, scale, RoundingMode.HALF_UP);
     }
 
     /**
@@ -77,10 +77,10 @@ public class BigDecimalExercises {
      * @return -1 if a < b, 0 if equal, 1 if a > b
      */
     public static int compareValues(BigDecimal a, BigDecimal b) {
-        // TODO: 5 - Use a.compareTo(b) to compare the two values.
+        //  5 - Use a.compareTo(b) to compare the two values.
         //  Return the result (which will be -1, 0, or 1).
         //  Do NOT use equals() for numeric comparison!
-        return 0;
+        return a.compareTo(b);
     }
 
     /**
@@ -88,16 +88,20 @@ public class BigDecimalExercises {
      * Prints the difference between BigDecimal created from double vs String.
      */
     public static void demonstrateDoubleProblem() {
-        // TODO: 6 - Create two BigDecimals for the value 0.1:
+        //  6 - Create two BigDecimals for the value 0.1:
         //  BigDecimal fromDouble = new BigDecimal(0.1);
         //  BigDecimal fromString = new BigDecimal("0.1");
         //  Print both values. Notice that fromDouble is NOT exactly 0.1!
         //  It will show something like 0.1000000000000000055511151231257827021181583404541015625
         //  Print a message explaining why the String constructor should be preferred.
-
+        BigDecimal fromDouble = new BigDecimal("0.1");
+        BigDecimal fromString = new BigDecimal("0.1");
+        System.out.println("0.1 as BigDecimal fromDouble: " + fromDouble);
+        System.out.println("0.1 as BigDecimal fromString: " + fromString);
+        System.out.println("As it can be seen using new BigDecimal(double) is problematic as double uses binary precision. " + "So always use String constructor to create BigDecimal.");
     }
 
-    public static void main(String[] args) {
+    static void main(String[] args) {
         System.out.println("=== Create from String ===");
         BigDecimal price = createFromString("19.99");
         System.out.println("Price: " + price);

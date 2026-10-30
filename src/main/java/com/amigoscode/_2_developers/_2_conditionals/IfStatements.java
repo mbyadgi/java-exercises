@@ -2,7 +2,7 @@ package com.amigoscode._2_developers._2_conditionals;
 
 /**
  * If Statements and Conditional Exercises
- *
+ * <p>
  * Practice ternary operators, complex boolean conditions, null-safe operations,
  * proper string comparison, and switch expressions.
  */
@@ -16,9 +16,9 @@ public class IfStatements {
      * @return "Even" or "Odd"
      */
     public static String evenOrOdd(int number) {
-        // TODO: 1 - Use the ternary operator ( condition ? valueIfTrue : valueIfFalse )
+        //  1 - Use the ternary operator ( condition ? valueIfTrue : valueIfFalse )
         //  to return "Even" or "Odd" based on whether number % 2 == 0.
-        return null;
+        return number % 2 == 0 ? "Even" : "Odd";
     }
 
     /**
@@ -31,9 +31,9 @@ public class IfStatements {
      * @return true if eligible
      */
     public static boolean isEligibleForLoan(int age, double income, boolean hasGuarantor) {
-        // TODO: 2 - Use a single return statement with && and || operators
+        //  2 - Use a single return statement with && and || operators
         //  to express the eligibility condition described above.
-        return false;
+        return (age >= 18 && income >= 30000) || (hasGuarantor && age >= 16);
     }
 
     /**
@@ -44,9 +44,9 @@ public class IfStatements {
      * @return the letter grade
      */
     public static String getGrade(int score) {
-        // TODO: 3 - Use nested ternary operators to return the correct grade.
+        //  3 - Use nested ternary operators to return the correct grade.
         //  Example pattern: score >= 90 ? "A" : score >= 80 ? "B" : ...
-        return null;
+        return score >= 90 ? "A" : score >= 80 ? "B" : score >= 70 ? "C" : score >= 60 ? "D" : "F";
     }
 
     /**
@@ -57,9 +57,9 @@ public class IfStatements {
      * @return the length of the string, or -1 if null
      */
     public static int safeLength(String text) {
-        // TODO: 4 - Check if text is null before calling text.length().
+        //  4 - Check if text is null before calling text.length().
         //  Return -1 if text is null, otherwise return text.length().
-        return 0;
+        return text == null ? -1 : text.length();
     }
 
     /**
@@ -71,11 +71,17 @@ public class IfStatements {
      * @return true if both strings are equal (or both null)
      */
     public static boolean safeEquals(String a, String b) {
-        // TODO: 5 - Compare strings properly:
+        //  5 - Compare strings properly:
         //  If both are null, return true.
         //  If only one is null, return false.
         //  Otherwise, use a.equals(b) — never use == for string content comparison.
-        return false;
+        if (a == null && b == null) {
+            return true;
+        }
+        if (a == null || b == null) {
+            return false;
+        }
+        return a.equals(b);
     }
 
     /**
@@ -87,7 +93,7 @@ public class IfStatements {
      * @return the name of the day
      */
     public static String getDayName(int day) {
-        // TODO: 6 - Use a switch expression with arrow syntax to return the day name.
+        //  6 - Use a switch expression with arrow syntax to return the day name.
         //  Example:
         //  return switch (day) {
         //      case 1 -> "Monday";
@@ -95,10 +101,19 @@ public class IfStatements {
         //      ...
         //      default -> "Invalid";
         //  };
-        return null;
+        return switch (day) {
+            case 1 -> "Monday";
+            case 2 -> "Tuesday";
+            case 3 -> "Wednesday";
+            case 4 -> "Thursday";
+            case 5 -> "Friday";
+            case 6 -> "Saturday";
+            case 7 -> "Sunday";
+            default -> "Invalid";
+        };
     }
 
-    public static void main(String[] args) {
+    static void main(String[] args) {
         System.out.println("=== Ternary Operator ===");
         System.out.println("4 is " + evenOrOdd(4));
         System.out.println("7 is " + evenOrOdd(7));

@@ -47,7 +47,7 @@ public class MiniProject {
         // Case 1: Print "Result: " + (num1 + num2)
         // Case 2: Print "Result: " + (num1 - num2)
         // Case 3: Print "Result: " + (num1 * num2)
-        // Case 4: Perform division (but handle division by zero first - see TODO 6)
+        // Case 4: Perform division (but handle division by zero first)
         // Default: Print "Invalid choice"
         switch (choice) {
             case 1 -> System.out.println("Result: " + (firstNum + secondNum));

@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * File Writing Exercises
- *
+ * <p>
  * Practice writing to files using the modern java.nio.file API and the
  * classic java.io API. Learn to write, append, and copy files.
  */
@@ -25,9 +25,9 @@ public class FileWriting {
      * @throws IOException if writing fails
      */
     public static void writeString(String filePath, String content) throws IOException {
-        // TODO: 1 - Use Files.writeString(Path.of(filePath), content) to write the content.
+        //  1 - Use Files.writeString(Path.of(filePath), content) to write the content.
         //  This creates the file if it doesn't exist, or overwrites it if it does.
-
+        Files.writeString(Path.of(filePath), content);
     }
 
     /**
@@ -38,10 +38,10 @@ public class FileWriting {
      * @throws IOException if writing fails
      */
     public static void appendToFile(String filePath, String text) throws IOException {
-        // TODO: 2 - Use Files.writeString with StandardOpenOption.APPEND to append text.
+        //  2 - Use Files.writeString with StandardOpenOption.APPEND to append text.
         //  Add a newline ("\n") before the text so it appears on a new line.
         //  Example: Files.writeString(Path.of(filePath), "\n" + text, StandardOpenOption.APPEND);
-
+        Files.writeString(Path.of(filePath), "\n" + text, StandardOpenOption.APPEND);
     }
 
     /**
@@ -52,9 +52,9 @@ public class FileWriting {
      * @throws IOException if writing fails
      */
     public static void writeLines(String filePath, List<String> lines) throws IOException {
-        // TODO: 3 - Use Files.write(Path.of(filePath), lines) to write all lines.
+        //  3 - Use Files.write(Path.of(filePath), lines) to write all lines.
         //  Each string in the list becomes one line in the file.
-
+        Files.write(Path.of(filePath), lines);
     }
 
     /**
@@ -65,7 +65,7 @@ public class FileWriting {
      * @throws IOException if writing fails
      */
     public static void writeWithBufferedWriter(String filePath) throws IOException {
-        // TODO: 4 - Use try-with-resources to create a BufferedWriter:
+        //  4 - Use try-with-resources to create a BufferedWriter:
         //  try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
         //      writer.write("Line 1");
         //      writer.newLine();
@@ -73,7 +73,13 @@ public class FileWriting {
         //      writer.newLine();
         //      writer.write("Line 3");
         //  }
-
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(filePath))) {
+            bufferedWriter.write("Hello Alex!");
+            bufferedWriter.newLine();
+            bufferedWriter.write("How are you?");
+            bufferedWriter.newLine();
+            bufferedWriter.write("Java is Awesome");
+        }
     }
 
     /**
@@ -84,12 +90,12 @@ public class FileWriting {
      * @throws IOException if reading or writing fails
      */
     public static void copyFile(String sourcePath, String destinationPath) throws IOException {
-        // TODO: 5 - Read the content from sourcePath and write it to destinationPath.
+        //  5 - Read the content from sourcePath and write it to destinationPath.
         //  You can use Files.readString() + Files.writeString(),
         //  or Files.copy(Path.of(sourcePath), Path.of(destinationPath)) for a direct copy.
         //  Note: Files.copy will throw if destination already exists unless you add
         //  StandardCopyOption.REPLACE_EXISTING.
-
+        Files.writeString(Path.of(destinationPath), Files.readString(Path.of(sourcePath)));
     }
 
     /**
@@ -101,15 +107,20 @@ public class FileWriting {
      * @throws IOException if writing fails
      */
     public static void writeCsv(String filePath, String[] headers, String[][] rows) throws IOException {
-        // TODO: 6 - Write a CSV file:
+        //  6 - Write a CSV file:
         //  First, write the headers joined by commas, followed by a newline.
         //  Then, for each row, write the values joined by commas, followed by a newline.
         //  Use StringBuilder or String.join(",", array) to build each line.
         //  Write the complete result using Files.writeString().
-
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.join(",", headers)).append("\n");
+        for (String[] row : rows) {
+            sb.append(String.join(",", row)).append("\n");
+        }
+        Files.writeString(Path.of(filePath), sb);
     }
 
-    public static void main(String[] args) throws IOException {
+    static void main(String[] args) throws IOException {
         String baseDir = "test-output";
         Files.createDirectories(Path.of(baseDir));
 
@@ -137,18 +148,17 @@ public class FileWriting {
 
         System.out.println("\n=== Write CSV ===");
         String[] headers = {"Name", "Age", "City"};
-        String[][] rows = {
-                {"Alice", "30", "London"},
-                {"Bob", "25", "Paris"},
-                {"Charlie", "35", "Tokyo"}
-        };
+        String[][] rows = {{"Alice", "30", "London"}, {"Bob", "25", "Paris"}, {"Charlie", "35", "Tokyo"}};
         writeCsv(baseDir + "/data.csv", headers, rows);
         System.out.println("CSV written:");
         System.out.println(Files.readString(Path.of(baseDir + "/data.csv")));
 
         // Clean up
-        Files.walk(Path.of(baseDir))
-                .sorted(java.util.Comparator.reverseOrder())
-                .forEach(p -> { try { Files.delete(p); } catch (IOException ignored) {} });
+        Files.walk(Path.of(baseDir)).sorted(java.util.Comparator.reverseOrder()).forEach(p -> {
+            try {
+                Files.delete(p);
+            } catch (IOException ignored) {
+            }
+        });
     }
 }

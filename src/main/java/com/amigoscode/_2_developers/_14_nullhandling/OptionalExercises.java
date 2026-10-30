@@ -5,7 +5,7 @@ import java.util.Optional;
 
 /**
  * Optional Exercises
- *
+ * <p>
  * Practice using java.util.Optional to handle potentially absent values.
  * Optional is a container that may or may not contain a non-null value.
  * It helps avoid NullPointerException and makes code intent clearer.
@@ -20,9 +20,9 @@ public class OptionalExercises {
      * @return an Optional containing the value
      */
     public static Optional<String> createOptional(String value) {
-        // TODO: 1 - Use Optional.of(value) to create and return an Optional.
+        //  1 - Use Optional.of(value) to create and return an Optional.
         //  Note: Optional.of() will throw NullPointerException if value is null.
-        return null;
+        return Optional.of(value);
     }
 
     /**
@@ -33,9 +33,9 @@ public class OptionalExercises {
      * @return an Optional that is empty if value is null, otherwise contains value
      */
     public static Optional<String> createNullableOptional(String value) {
-        // TODO: 2 - Use Optional.ofNullable(value) to safely create an Optional.
+        //  2 - Use Optional.ofNullable(value) to safely create an Optional.
         //  This returns Optional.empty() if value is null, or Optional.of(value) otherwise.
-        return null;
+        return Optional.ofNullable(value);
     }
 
     /**
@@ -46,11 +46,11 @@ public class OptionalExercises {
      * @return the contained value, or "EMPTY"
      */
     public static String checkAndGet(Optional<String> optional) {
-        // TODO: 3 - Use optional.isPresent() to check if a value exists.
+        //  3 - Use optional.isPresent() to check if a value exists.
         //  If present, return optional.get().
         //  If not present, return "EMPTY".
         //  Note: calling get() on an empty Optional throws NoSuchElementException!
-        return null;
+        return optional.isPresent() ? optional.get() : "EMPTY";
     }
 
     /**
@@ -61,10 +61,10 @@ public class OptionalExercises {
      * @return the contained value or the default
      */
     public static String getOrDefault(Optional<String> optional, String defaultValue) {
-        // TODO: 4 - Use optional.orElse(defaultValue) to return the value if present,
+        //  4 - Use optional.orElse(defaultValue) to return the value if present,
         //  or defaultValue if the Optional is empty.
         //  This is cleaner than using isPresent() + get().
-        return null;
+        return optional.orElse(defaultValue);
     }
 
     /**
@@ -75,11 +75,11 @@ public class OptionalExercises {
      * @throws NoSuchElementException if the Optional is empty
      */
     public static String getOrThrow(Optional<String> optional) {
-        // TODO: 5 - Use optional.orElseThrow() to return the value if present,
+        //  5 - Use optional.orElseThrow() to return the value if present,
         //  or throw NoSuchElementException if empty.
         //  You can also use orElseThrow(() -> new RuntimeException("No value!"))
         //  to throw a custom exception.
-        return null;
+        return optional.orElseThrow();
     }
 
     /**
@@ -90,10 +90,10 @@ public class OptionalExercises {
      * @return an Optional containing the uppercase string, or empty Optional
      */
     public static Optional<String> transformValue(Optional<String> optional) {
-        // TODO: 6 - Use optional.map(String::toUpperCase) to transform the value.
+        //  6 - Use optional.map(String::toUpperCase) to transform the value.
         //  map() applies the function if a value is present, and returns a new Optional.
         //  If the original Optional is empty, map() returns an empty Optional.
-        return null;
+        return optional.map(String::toUpperCase);
     }
 
     /**
@@ -104,11 +104,11 @@ public class OptionalExercises {
      * @return an Optional containing the domain (part after @), or empty
      */
     public static Optional<String> extractDomain(Optional<String> emailOptional) {
-        // TODO: 7 - Use flatMap() to chain with the getDomain() helper method below.
+        //  7 - Use flatMap() to chain with the getDomain() helper method below.
         //  flatMap() is like map(), but used when the transformation function itself
         //  returns an Optional. It "flattens" Optional<Optional<String>> to Optional<String>.
         //  Call: emailOptional.flatMap(OptionalExercises::getDomain)
-        return null;
+        return emailOptional.flatMap(OptionalExercises::getDomain);
     }
 
     /**
@@ -123,7 +123,7 @@ public class OptionalExercises {
         return Optional.of(email.substring(atIndex + 1));
     }
 
-    public static void main(String[] args) {
+    static void main(String[] args) {
         System.out.println("=== Optional.of() ===");
         Optional<String> opt1 = createOptional("Hello");
         System.out.println("Created: " + opt1);
