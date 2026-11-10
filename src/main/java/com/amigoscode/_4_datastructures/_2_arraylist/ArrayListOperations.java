@@ -9,34 +9,51 @@ import java.util.List;
 
 public class ArrayListOperations {
 
-    public static void main(String[] args) {
+    static void main(String[] args) {
 
-        // TODO: 1 - Create an ArrayList of Integers called 'numbers'
+        //  1 - Create an ArrayList of Integers called 'numbers'
         //           Add these 10 numbers: 45, 12, 78, 34, 56, 23, 89, 67, 11, 90
+        List<Integer> numbers = new ArrayList<>();
+        numbers.add(45);
+        numbers.add(12);
+        numbers.add(78);
+        numbers.add(34);
+        numbers.add(56);
+        numbers.add(23);
+        numbers.add(89);
+        numbers.add(67);
+        numbers.add(11);
+        numbers.add(90);
+        System.out.println("numbers list: " + numbers);
 
-
-        // TODO: 2 - Sort the list in ascending order using Collections.sort()
+        //  2 - Sort the list in ascending order using Collections.sort()
         //           Print the sorted list
+        Collections.sort(numbers);
+        System.out.println("numbers list sorted: " + numbers);
 
-
-        // TODO: 3 - Reverse the list using Collections.reverse()
+        //  3 - Reverse the list using Collections.reverse()
         //           Print the reversed list
+        Collections.reverse(numbers);
+        System.out.println("numbers list in reverse: " + numbers);
 
+        //  4 - Find and print the maximum value using Collections.max()
+        System.out.println("Max value in numbers list: " + Collections.max(numbers));
 
-        // TODO: 4 - Find and print the maximum value using Collections.max()
-
-
-        // TODO: 5 - Create a subList containing the first 5 elements (indices 0 to 4)
+        //  5 - Create a subList containing the first 5 elements (indices 0 to 4)
         //           Print the subList
         //           Note: subList returns a view, not a copy
+        List<Integer> numSubList = numbers.subList(0, 5);
+        System.out.println("sublist of numbers: " + numSubList);
 
-
-        // TODO: 6 - Convert the ArrayList to an Integer array using toArray()
+        //  6 - Convert the ArrayList to an Integer array using toArray()
         //           Print the array length to verify
+        Integer[] intArray = numbers.toArray(new Integer[0]);
+        System.out.println("integer array length: " + intArray.length);
 
-
-        // TODO: 7 - Clear the list using clear() and verify it's empty
+        //  7 - Clear the list using clear() and verify it's empty
         //           Print the size and the result of isEmpty()
-
+        numbers.clear();
+        System.out.println("numbers list after clear: " + numbers);
+        System.out.println("Is numbers list empty: " + numbers.isEmpty());
     }
 }
